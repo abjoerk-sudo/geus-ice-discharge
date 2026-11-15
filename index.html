@@ -6,8 +6,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Greenland Ice Discharge | UCPH</title>
 
-<!-- Version 5.1 -->
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@10.10.0/ol.css">
 <script src="https://cdn.jsdelivr.net/npm/ol@10.10.0/dist/ol.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.0/proj4.js"></script>
@@ -18,275 +16,203 @@
   --red:#901b31;
   --ink:#172937;
   --muted:#60717d;
-  --bg:#f3f6f8;
   --line:#dce3e8;
-  --gold:#ffd260;
 }
-
-* { box-sizing:border-box; }
-
+* {box-sizing:border-box}
 body {
   margin:0;
-  background:var(--bg);
+  background:#f3f6f8;
   color:var(--ink);
   font-family:Arial,Helvetica,sans-serif;
 }
-
 header {
   background:#fff;
   border-bottom:4px solid var(--red);
-  padding:15px 26px;
+  padding:16px 24px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:14px;
+  align-items:center;
 }
-
-h1 { font-size:24px; margin:0 0 5px; }
-header p { font-size:12px; color:var(--muted); margin:0; }
-
+h1 {font-size:25px;margin:0 0 4px}
+header p {font-size:12px;color:var(--muted);margin:0}
 .logo {
-  font-size:13px;
   font-weight:700;
-  letter-spacing:.04em;
   color:var(--red);
+  font-size:14px;
   text-align:right;
 }
-
 main {
   max-width:1780px;
   margin:auto;
   padding:16px;
   display:grid;
+  grid-template-columns:minmax(400px,1.1fr) minmax(410px,.9fr);
   gap:16px;
-  grid-template-columns:minmax(390px,1.1fr) minmax(410px,.9fr);
 }
-
 section {
   background:#fff;
   border:1px solid var(--line);
   border-radius:11px;
-  box-shadow:0 2px 10px #1020300a;
   overflow:hidden;
+  box-shadow:0 2px 10px #1020300a;
 }
-
 .pane-title {
   padding:13px 15px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  border-bottom:1px solid var(--line);
+  align-items:center;
   gap:10px;
+  border-bottom:1px solid var(--line);
 }
-
-.pane-title h2 { font-size:16px; margin:0; }
-.sub { color:var(--muted); font-size:12px; }
-
-.maparea { position:relative; }
-
+.pane-title h2 {font-size:16px;margin:0}
+.sub {font-size:12px;color:var(--muted)}
+.maparea {position:relative}
 #map {
-  height:min(76vh,770px);
+  height:min(78vh,790px);
   min-height:520px;
   background:#dfe8ef;
 }
-
-.map-note {
+.map-legend,.map-note {
   position:absolute;
-  bottom:12px;
-  left:13px;
-  z-index:600;
+  z-index:500;
   background:#fffffff0;
   border-radius:7px;
-  padding:9px 11px;
-  font-size:11px;
-  color:#334954;
-  max-width:350px;
   box-shadow:0 1px 8px #0002;
+  padding:11px;
+  font-size:12px;
 }
-
-.map-note small {
-  display:block;
-  color:#60717d;
-  margin-top:5px;
-}
-
 .map-legend {
-  position:absolute;
   top:12px;
   right:12px;
-  z-index:600;
-  padding:12px;
-  background:#fffffff0;
-  border-radius:7px;
-  font-size:12px;
-  box-shadow:0 1px 6px #0002;
-  min-width:195px;
-  max-width:230px;
+  min-width:190px;
+  max-width:235px;
 }
-
-.legend-header {
-  font-weight:700;
-  margin-bottom:4px;
+.map-note {
+  bottom:12px;
+  left:12px;
+  max-width:340px;
 }
-
+.map-note small,.legend-note {
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:6px;
+  line-height:1.5;
+}
 .legend-row {
   display:flex;
   align-items:center;
   gap:10px;
-  min-height:29px;
+  min-height:30px;
 }
-
 .legend-circle {
+  border:1px solid #801c2b;
+  border-radius:50%;
   display:inline-block;
   flex:none;
-  border-radius:50%;
-  border:1px solid #801c2b;
 }
-
-.legend-note {
-  display:block;
-  margin-top:7px;
-  color:#60717d;
-  font-size:10px;
-  line-height:1.4;
-}
-
 aside {
   display:flex;
   flex-direction:column;
   gap:15px;
 }
-
 .controls {
   padding:14px;
   display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-columns:1fr auto;
   gap:10px;
 }
-
 input,select,button {
+  padding:9px;
   font:inherit;
   border:1px solid #cbd5db;
   border-radius:6px;
   background:#fff;
-  padding:10px;
   color:var(--ink);
 }
-
-button { cursor:pointer; }
-
+button {cursor:pointer}
 .statrow {
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
   padding:0 14px 10px;
 }
-
 .stat {
   border:1px solid var(--line);
   border-radius:7px;
   padding:11px;
+  min-width:0;
 }
-
 .stat label {
   font-size:11px;
   color:var(--muted);
   display:block;
 }
-
 .stat strong {
+  font-size:20px;
   display:block;
-  font-size:21px;
-  margin-top:5px;
+  margin:5px 0;
 }
-
-.graph { height:335px; }
-
+.graph {height:335px}
 .foot {
-  padding:11px 14px;
+  padding:12px 14px;
   border-top:1px solid var(--line);
   font-size:12px;
-  color:var(--muted);
   line-height:1.6;
+  color:var(--muted);
 }
-
-a { color:#9b1930; }
-
+a {color:var(--red)}
 #message {
   margin:0 14px 12px;
   padding:10px;
-  border-radius:7px;
   background:#fff6e8;
+  border-radius:7px;
+  font-size:12px;
   color:#6b4c11;
-  font-size:12px;
 }
-
-.hidden { display:none!important; }
-
-#qa {
-  padding:14px;
-  line-height:1.6;
-  font-size:12px;
-}
-
-#qa .item {
+.hidden {display:none!important}
+#qa {padding:14px;font-size:12px}
+.item {
   display:flex;
   justify-content:space-between;
-  gap:15px;
+  padding:6px 0;
   border-bottom:1px solid var(--line);
-  padding:5px 0;
 }
-
-#qa .item strong { text-align:right; }
-
-#qa p {
-  margin:6px 0 0;
-  color:#7a4c19;
-}
-
-.ol-viewport { font-family:inherit; }
-
-.ol-control button { background:#901b31; }
-.ol-control button:hover { background:#6f1526; }
-.ol-attribution { font-size:10px; }
-
-#pointTooltip {
+.item strong {text-align:right}
+#tip {
   position:absolute;
-  z-index:850;
-  pointer-events:none;
+  z-index:800;
   display:none;
-  padding:7px 9px;
+  pointer-events:none;
   background:#fff;
   border:1px solid #ddd;
+  padding:7px 10px;
   border-radius:5px;
-  box-shadow:0 2px 8px #0002;
+  box-shadow:0 2px 8px #0003;
   font-size:12px;
-  max-width:300px;
+  max-width:270px;
 }
-
-.qa-ok { color:#326a4b; }
-.qa-warn { color:#a1511f; }
-
+.ol-control button {background:var(--red)}
+.ol-attribution {font-size:10px}
 @media(max-width:950px) {
-  main { grid-template-columns:1fr; }
-  #map { height:560px; }
-  header { padding:12px; }
-  h1 { font-size:20px; }
+  main {grid-template-columns:1fr}
+  #map {height:560px}
+  header {padding:12px}
 }
-
 @media(max-width:530px) {
-  main { padding:8px; }
-  .controls { grid-template-columns:1fr; }
-  .statrow { grid-template-columns:1fr 1fr; }
-  header .logo { font-size:10px; }
-  #map { min-height:440px; height:55vh; }
-  .map-legend { max-width:155px; }
+  main {
+    padding:8px;
+    grid-template-columns:minmax(0,1fr);
+  }
+  .controls {grid-template-columns:1fr}
+  #map {min-height:450px;height:58vh}
+  .map-legend {min-width:150px;max-width:170px}
+  h1 {font-size:21px}
 }
 </style>
 </head>
 
 <body>
-
 <header>
   <div>
     <h1>Greenland Ice Discharge</h1>
@@ -296,78 +222,59 @@ a { color:#9b1930; }
 </header>
 
 <main>
-
 <section>
   <div class="pane-title">
     <h2>Glacier selector · Greenland</h2>
-
-    <select id="basemap" aria-label="Map background">
-      <option value="osm" selected>
-        OpenStreetMap · EPSG:3413
-      </option>
+    <select id="basemap">
+      <option value="nunagis" selected>NunaGIS topographic (default)</option>
       <option value="velocity">Ice velocity (NASA)</option>
       <option value="satellite">Satellite imagery</option>
       <option value="simple">Simple geographic map</option>
     </select>
   </div>
-
   <div class="maparea">
     <div id="map"></div>
-    <div id="pointTooltip"></div>
-
+    <div id="tip"></div>
     <div class="map-legend">
-      <div class="legend-header">Ice discharge · Gt/yr</div>
+      <b>Ice discharge · Gt/yr</b>
       <div class="sub">Light red = low · dark red = high</div>
-      <div id="legendRows">Loading…</div>
+      <div id="legend">Loading…</div>
       <small id="legendDate" class="legend-note"></small>
     </div>
-
     <div class="map-note">
-      <strong>Choose a glacier</strong> by clicking a coloured circle,
-      or use the search field.
-
+      <b>Choose a glacier</b> by clicking a circle or searching its name.
       <small id="mapstatus">Loading points…</small>
-
+      <small id="basemapstatus">Loading NunaGIS topography…</small>
       <small>
-        Circles represent monthly discharge rates (Gt/yr).
-        OSM is reprojected to EPSG:3413.
-        NASA velocity is a historical reference layer.
+        Circle colour and size represent discharge, not velocity.
+        NunaGIS detail is greatest over ice-free terrain.
       </small>
     </div>
   </div>
 </section>
 
 <aside>
-
 <section>
   <div class="pane-title">
     <div>
       <h2 id="selectiontitle">Greenland-wide discharge</h2>
-      <span id="selectionmeta" class="sub">
-        All Greenland discharge
-      </span>
+      <span id="selectionmeta" class="sub">All Greenland outlets</span>
     </div>
-
     <button id="reset">Greenland overview</button>
   </div>
 
   <div class="controls">
-    <input
-      id="search"
-      placeholder="Search Glacier name (Gate #)"
-      list="glaciers"
-    >
+    <input id="search" list="glaciers"
+      placeholder="Search glacier name (Gate #)">
     <datalist id="glaciers"></datalist>
-
     <select id="period">
       <option value="all">Entire record</option>
       <option value="10">Last 10 years</option>
       <option value="3">Last 3 years</option>
       <option value="1">Last year</option>
     </select>
-
     <label class="sub">
-      <input type="checkbox" id="uncertainty" checked>
+      <input id="uncertainty" type="checkbox" checked>
       Uncertainty band
     </label>
   </div>
@@ -378,24 +285,18 @@ a { color:#9b1930; }
       <strong id="latest">—</strong>
       <span id="latestdate" class="sub">Not loaded</span>
     </div>
-
     <div class="stat">
       <label>Selected gate</label>
       <strong id="gateLabel">All Greenland</strong>
-      <span id="gateMeta" class="sub">
-        Monthly discharge · Gt/yr
-      </span>
+      <span class="sub">Monthly discharge · Gt/yr</span>
     </div>
   </div>
-
-  <div id="message">Loading published PROMICE data…</div>
+  <div id="message">Loading PROMICE data…</div>
   <div id="chart" class="graph"></div>
-
   <div class="foot">
-    Each plotted point is a monthly discharge rate (Gt/yr),
-    not monthly mass loss (Gt).
-    Months with multiple observations are represented by
-    their arithmetic mean.
+    Values are monthly discharge rates (Gt/yr), not monthly mass loss (Gt).
+    Multiple observations within a month are averaged arithmetically;
+    inspect coverage and gaps.
     <span id="version"></span>
   </div>
 </section>
@@ -403,371 +304,274 @@ a { color:#9b1930; }
 <section>
   <div class="pane-title">
     <h2>Data quality check</h2>
-    <span class="sub">Automatic basic validation</span>
+    <span class="sub">Basic validation</span>
   </div>
-
   <div id="qa">Waiting for data…</div>
 </section>
 
 <section>
-  <div class="pane-title">
-    <h2>Source and export</h2>
-  </div>
-
+  <div class="pane-title"><h2>Sources and export</h2></div>
   <div class="foot">
-    Basemap: OpenStreetMap contributors.
-    <br>
-    Discharge:
+    <a href="https://nunagis.gl/en/web-services/" target="_blank" rel="noopener">
+      NunaGIS / Asiaq / Klimadatastyrelsen</a> (topographic map) ·
     <a href="https://doi.org/10.22008/promice/data/ice_discharge/d/v02"
-       target="_blank">PROMICE / GEUS</a>
-    ·
-    <a href="https://doi.org/10.5194/essd-12-1367-2020"
-       target="_blank">Mankoff et al. (2020)</a>
-    <br>
-    Velocity:
+       target="_blank" rel="noopener">PROMICE / GEUS</a> (discharge) ·
     <a href="https://worldview.earthdata.nasa.gov/"
-       target="_blank">NASA GIBS</a>
+       target="_blank" rel="noopener">NASA GIBS</a> (alternative maps).
     <br>
     <a id="csvDownload" href="#" download="discharge.csv">
-      Download displayed time series (CSV)
+      Download displayed monthly series (CSV)
     </a>
   </div>
 </section>
-
 </aside>
 </main>
 
 <script>
 'use strict';
 
-// =====================================================
-// ERROR HANDLING
-// =====================================================
+const $ = id => document.getElementById(id);
+const finite = v => typeof v === 'number' && Number.isFinite(v);
 
-window.addEventListener('error',function(event){
-  const msg=document.getElementById('message');
-  const status=document.getElementById('mapstatus');
+let data = null;
+let selected = null;
+let features = {};
+let markerStyles = {};
+let mapMax = 0;
+let refMonth = '';
 
-  if(msg && !msg.classList.contains('hidden')){
-    msg.textContent=
-      'JavaScript error: '+event.message+
-      '. Please report this message.';
-  }
-
-  if(status && status.textContent==='Loading points…'){
-    status.textContent=
-      'A JavaScript error prevented map loading.';
+window.addEventListener('error', e => {
+  if (!$('message').classList.contains('hidden')) {
+    $('message').textContent = 'JavaScript error: ' + e.message;
   }
 });
 
-// =====================================================
-// GENERAL FUNCTIONS
-// =====================================================
-
-const $=id=>document.getElementById(id);
-
-const finite=v=>
-  typeof v==='number' && Number.isFinite(v);
-
-const fmt=(v,n=1)=>
-  finite(v)?v.toFixed(n):'—';
-
-const parseDate=date=>
-  new Date(date+'T00:00:00Z');
-
-let dataset=null;
-let selected=null;
-let markers={};
-let markerSpecs={};
-
-// =====================================================
 // POLAR PROJECTION
-// =====================================================
 
-proj4.defs(
-  'EPSG:3413',
-  '+proj=stere +lat_0=90 +lat_ts=70 '+
-  '+lon_0=-45 +x_0=0 +y_0=0 '+
-  '+datum=WGS84 +units=m +no_defs'
-);
+proj4.defs('EPSG:3413',
+  '+proj=stere +lat_0=90 +lat_ts=70 +lon_0=-45 ' +
+  '+x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs');
 
 ol.proj.proj4.register(proj4);
 
-const polar=ol.proj.get('EPSG:3413');
-
-polar.setExtent([
-  -4194304,-4194304,
-   4194304, 4194304
+ol.proj.get('EPSG:3413').setExtent([
+  -4194304,-4194304,4194304,4194304
 ]);
 
-const polarGrid=new ol.tilegrid.TileGrid({
-  origin:[-4194304,4194304],
-  resolutions:[
-    8192,4096,2048,1024,512,256
-  ],
-  tileSize:512,
-  extent:[
-    -4194304,-4194304,
-     4194304,4194304
-  ]
+const polarGrid = new ol.tilegrid.TileGrid({
+  origin: [-4194304,4194304],
+  resolutions: [8192,4096,2048,1024,512,256],
+  tileSize: 512
 });
 
-// =====================================================
-// MAP BACKGROUNDS
-// =====================================================
+// NASA BACKGROUNDS
 
-const nasa=
+const nasaBase =
   'https://gibs.earthdata.nasa.gov/wmts/epsg3413/best/';
 
-function nasaLayer(name,extension){
+function nasa(name,ext) {
   return new ol.layer.Tile({
+    visible:false,
     source:new ol.source.XYZ({
-      url:nasa+name+
-        '/default/500m/{z}/{y}/{x}'+extension,
-
+      url:nasaBase + name +
+        '/default/500m/{z}/{y}/{x}' + ext,
       projection:'EPSG:3413',
       tileGrid:polarGrid,
-      crossOrigin:'anonymous',
       wrapX:false,
       attributions:'NASA ESDIS GIBS'
-    }),
-    visible:false
+    })
   });
 }
 
-const osmLayer=new ol.layer.Tile({
-  source:new ol.source.OSM({
-    crossOrigin:'anonymous'
-  }),
-  visible:true
+const physical = nasa('BlueMarble_ShadedRelief_Bathymetry','.jpeg');
+const satellite = nasa('BlueMarble_NextGeneration','.jpeg');
+const velocity = nasa('MEaSUREs_Ice_Velocity_Greenland','');
+
+velocity.setOpacity(.92);
+
+// NUNAGIS TOPOGRAPHIC BACKGROUND
+
+let nunagis = null;
+
+try {
+  const source = new ol.source.ImageArcGISRest({
+    url:'https://kort.nunagis.gl/refserver/rest/services/AabentLand/Aabent_Land_kort/MapServer',
+    projection:'EPSG:3413',
+    ratio:1,
+    params:{
+      FORMAT:'png32',
+      TRANSPARENT:true
+    },
+    attributions:'NunaGIS / Asiaq / Klimadatastyrelsen'
+  });
+
+  nunagis = new ol.layer.Image({
+    source,
+    visible:false
+  });
+
+  source.on('imageloadend', () => {
+    if ($('basemap').value === 'nunagis') {
+      $('basemapstatus').textContent =
+        'NunaGIS topography · EPSG:3413';
+    }
+  });
+
+  source.on('imageloaderror', () => {
+    if ($('basemap').value === 'nunagis') {
+      $('basemapstatus').textContent =
+        'NunaGIS unavailable: NASA relief shown underneath.';
+    }
+  });
+
+} catch(e) {
+  $('basemapstatus').textContent =
+    'NunaGIS layer unavailable: ' + e.message;
+}
+
+// MAP AND GLACIER LAYER
+
+const points = new ol.source.Vector({wrapX:false});
+
+const pointLayer = new ol.layer.Vector({
+  source:points
 });
 
-const simpleLayer=nasaLayer(
-  'BlueMarble_ShadedRelief_Bathymetry',
-  '.jpeg'
-);
-
-const satelliteLayer=nasaLayer(
-  'BlueMarble_NextGeneration',
-  '.jpeg'
-);
-
-const velocityLayer=nasaLayer(
-  'MEaSUREs_Ice_Velocity_Greenland',
-  ''
-);
-
-velocityLayer.setOpacity(.92);
-
-// =====================================================
-// GLACIER POINT LAYER
-// =====================================================
-
-const pointSource=new ol.source.Vector({
-  wrapX:false
-});
-
-const pointLayer=new ol.layer.Vector({
-  source:pointSource,
-  declutter:false
-});
-
-// =====================================================
-// MAP INITIALIZATION - CORRECTED
-// =====================================================
-
-const view=new ol.View({
+const view = new ol.View({
   projection:'EPSG:3413',
   center:ol.proj.transform(
-    [-42,72],
-    'EPSG:4326',
-    'EPSG:3413'
+    [-42,72],'EPSG:4326','EPSG:3413'
   ),
   zoom:2,
   minZoom:0,
-  maxZoom:9
+  maxZoom:11
 });
 
-// Corrected OpenLayers initialization.
-// Default controls are supplied automatically.
+const layers = [
+  physical,satellite,velocity,
+  ...(nunagis ? [nunagis] : []),
+  pointLayer
+];
 
-const map=new ol.Map({
+const map = new ol.Map({
   target:'map',
-  layers:[
-    osmLayer,
-    simpleLayer,
-    satelliteLayer,
-    velocityLayer,
-    pointLayer
-  ],
-  view:view
+  layers,
+  view
 });
 
-// Scale control is added separately.
+map.addControl(new ol.control.ScaleLine({units:'metric'}));
 
-if(ol.control && ol.control.ScaleLine){
-  map.addControl(
-    new ol.control.ScaleLine({
-      units:'metric'
-    })
+function setBackground(k) {
+  for (const l of [physical,satellite,velocity,nunagis]) {
+    if (l) l.setVisible(false);
+  }
+
+  if (k === 'satellite') {
+    satellite.setVisible(true);
+  } else if (k === 'simple') {
+    physical.setVisible(true);
+  } else if (k === 'velocity') {
+    physical.setVisible(true);
+    velocity.setVisible(true);
+  } else {
+    physical.setVisible(true);
+    if (nunagis) nunagis.setVisible(true);
+  }
+
+  $('basemapstatus').textContent =
+    k === 'nunagis' ? 'Loading NunaGIS topography…' : '';
+}
+
+$('basemap').onchange = () => setBackground($('basemap').value);
+
+setBackground('nunagis');
+
+function resetMap() {
+  const a = Object.values(features).map(
+    f => f.getGeometry().getCoordinates()
   );
-}
 
-// =====================================================
-// MAP NAVIGATION
-// =====================================================
-
-function resetMap(){
-  const coords=Object.values(markers).map(
-    f=>f.getGeometry().getCoordinates()
-  );
-
-  if(coords.length){
-    view.fit(
-      ol.extent.boundingExtent(coords),
-      {
-        size:map.getSize(),
-        padding:[35,35,35,35],
-        maxZoom:3.5,
-        duration:250
-      }
-    );
-  }else{
-    view.setCenter(
-      ol.proj.transform(
-        [-42,72],
-        'EPSG:4326',
-        'EPSG:3413'
-      )
-    );
-    view.setZoom(2);
+  if (a.length) {
+    view.fit(ol.extent.boundingExtent(a),{
+      size:map.getSize(),
+      padding:[32,32,32,32],
+      maxZoom:3.5,
+      duration:250
+    });
   }
 }
 
-function setBackground(which){
-  const layers={
-    osm:osmLayer,
-    simple:simpleLayer,
-    satellite:satelliteLayer,
-    velocity:velocityLayer
-  };
-
-  for(const layer of Object.values(layers)){
-    layer.setVisible(false);
-  }
-
-  if(which==='velocity'){
-    simpleLayer.setVisible(true);
-    velocityLayer.setVisible(true);
-  }else{
-    (layers[which]||osmLayer).setVisible(true);
-  }
-}
-
-$('basemap').onchange=()=>{
-  setBackground($('basemap').value);
-};
-
-// =====================================================
 // MAP TOOLTIPS
-// =====================================================
 
-const tooltip=$('pointTooltip');
+const tip = $('tip');
 
-map.on('pointermove',evt=>{
-  if(evt.dragging){
-    tooltip.style.display='none';
+map.on('pointermove',e => {
+  if(e.dragging) {
+    tip.style.display = 'none';
     return;
   }
 
-  const hit=map.forEachFeatureAtPixel(
-    evt.pixel,
-    f=>f,
-    {
-      hitTolerance:4,
-      layerFilter:l=>l===pointLayer
+  const f = map.forEachFeatureAtPixel(
+    e.pixel,x => x,{
+      layerFilter:l => l === pointLayer,
+      hitTolerance:5
     }
   );
 
-  map.getTargetElement().style.cursor=
-    hit?'pointer':'';
+  map.getTargetElement().style.cursor = f ? 'pointer' : '';
 
-  if(!hit){
-    tooltip.style.display='none';
+  if (!f) {
+    tip.style.display = 'none';
     return;
   }
 
-  tooltip.textContent=hit.get('tooltip');
-
-  tooltip.style.left=
-    Math.min(
-      evt.pixel[0]+14,
-      map.getSize()[0]-220
-    )+'px';
-
-  tooltip.style.top=
-    Math.max(5,evt.pixel[1]-42)+'px';
-
-  tooltip.style.display='block';
+  tip.textContent = f.get('tooltip');
+  tip.style.left = Math.max(
+    8,Math.min(e.pixel[0]+12,map.getSize()[0]-280)
+  )+'px';
+  tip.style.top = Math.max(5,e.pixel[1]-40)+'px';
+  tip.style.display = 'block';
 });
 
-map.on('singleclick',evt=>{
-  const hit=map.forEachFeatureAtPixel(
-    evt.pixel,
-    f=>f,
-    {
-      hitTolerance:5,
-      layerFilter:l=>l===pointLayer
+map.on('singleclick',e => {
+  const f = map.forEachFeatureAtPixel(
+    e.pixel,x => x,{
+      layerFilter:l => l === pointLayer,
+      hitTolerance:5
     }
   );
 
-  if(hit){
-    choose(hit.get('gateId'));
-  }
+  if(f) choose(f.get('id'));
 });
 
-// =====================================================
-// MONTHLY OBSERVATIONS
-// =====================================================
+// MONTHLY TIME SERIES
 
-function monthsFromSource(source){
-  if(!Array.isArray(source))return [];
+function monthly(source) {
+  const groups = new Map();
 
-  const grouped=new Map();
+  for (const p of (source || [])) {
+    if (!p || typeof p.date !== 'string' ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(p.date)) continue;
 
-  for(const p of source){
-    if(
-      !p ||
-      typeof p.date!=='string' ||
-      !/^\d{4}-\d{2}-\d{2}$/.test(p.date)
-    )continue;
-
-    const key=p.date.slice(0,7);
-
-    if(!grouped.has(key)){
-      grouped.set(key,[]);
-    }
-
-    grouped.get(key).push(p);
+    const k = p.date.slice(0,7);
+    if(!groups.has(k)) groups.set(k,[]);
+    groups.get(k).push(p);
   }
 
-  return [...grouped.entries()]
-    .sort(([a],[b])=>a.localeCompare(b))
-    .map(([key,points])=>{
-      const valid=points.filter(p=>finite(p.d));
+  return [...groups]
+    .sort(([a],[b]) => a.localeCompare(b))
+    .map(([k,v]) => {
+      const valid = v.filter(p => finite(p.d));
 
-      const mean=field=>{
-        const vs=valid
-          .map(p=>p[field])
-          .filter(finite);
-
-        return vs.length
-          ?vs.reduce((a,b)=>a+b,0)/vs.length
-          :null;
+      const mean = f => {
+        const a = valid.map(p => p[f]).filter(finite);
+        return a.length
+          ? a.reduce((x,y) => x+y,0)/a.length
+          : null;
       };
 
       return {
-        date:key+'-01',
+        date:k+'-01',
         d:mean('d'),
         err:mean('err'),
         coverage:mean('coverage'),
@@ -776,535 +580,290 @@ function monthsFromSource(source){
     });
 }
 
-// =====================================================
-// DISCHARGE SYMBOLS
-// =====================================================
+// GATE NAMES
 
-let mapMaxDischarge=0;
-let mapReferenceMonth='';
+function gateName(g) {
+  const n = String(g?.name || '')
+    .replace(/\s*\(Gate\s*#?\s*\d+\)\s*$/i,'')
+    .trim();
 
-function monthIndex(date){
-  const m=String(date).match(
-    /^(\d{4})-(\d{2})/
-  );
-
-  return m
-    ?Number(m[1])*12+Number(m[2])-1
-    :null;
+  return /^(|none|nan|null|unknown|unnamed glacier|gate\s*\d+)$/i.test(n)
+    ? '' : n;
 }
 
-function recentGateRate(gid){
-  const observations=monthsFromSource(
-    dataset?.series?.[String(gid)]||[]
-  );
-
-  const valid=observations.filter(
-    p=>finite(p.d)&&p.d>=0
-  );
-
-  const latest=valid.at(-1);
-
-  const age=latest&&monthIndex(mapReferenceMonth)!==null
-    ?monthIndex(mapReferenceMonth)-monthIndex(latest.date)
-    :Infinity;
-
-  return latest&&age>=0&&age<=12
-    ?latest
-    :null;
+function gateTitle(g) {
+  return gateName(g)
+    ? gateName(g)+' (Gate '+g.id+')'
+    : 'Gate '+g.id;
 }
 
-// Red colour gradient.
+function monthNumber(d) {
+  const m = String(d).match(/^(\d{4})-(\d{2})/);
+  return m ? Number(m[1])*12+Number(m[2]) : null;
+}
 
-function symbolSpec(value){
-  if(!finite(value)){
+function recent(gid) {
+  const a = monthly(data.series?.[String(gid)])
+    .filter(p => finite(p.d) && p.d >= 0);
+
+  const p = a.at(-1);
+  const age = p
+    ? monthNumber(refMonth)-monthNumber(p.date)
+    : Infinity;
+
+  return p && age >= 0 && age <= 12 ? p : null;
+}
+
+// RED DISCHARGE SYMBOLS
+
+function sym(value) {
+  if (!finite(value)) {
     return {
       radius:3.4,
-      color:'#9aa5ae',
-      fillColor:'#c4cbd1',
-      weight:1
+      fill:'#c4cbd1',
+      stroke:'#8a959d'
     };
   }
 
-  const t=mapMaxDischarge>0
-    ?Math.min(
-      1,
-      Math.log1p(Math.max(0,value))/
-      Math.log1p(mapMaxDischarge)
-    )
-    :0;
+  const t = mapMax > 0
+    ? Math.min(1,Math.log1p(value)/Math.log1p(mapMax))
+    : 0;
 
-  const low=[255,214,214];
-  const high=[108,0,29];
+  const low = [255,214,214];
+  const high = [108,0,29];
 
-  const rgb=low.map(
-    (v,i)=>Math.round(
-      v+(high[i]-v)*t
-    )
+  const rgb = low.map(
+    (v,i) => Math.round(v+(high[i]-v)*t)
   );
 
   return {
     radius:4+10*Math.sqrt(t),
-    color:'#801c2b',
-    fillColor:`rgb(${rgb.join(',')})`,
-    weight:1.2
+    fill:'rgb('+rgb.join(',')+')',
+    stroke:'#801c2b'
   };
 }
 
-// =====================================================
-// DYNAMIC LEGEND
-// =====================================================
-
-function addLegendRow(value,label,empty=false){
-  const row=document.createElement('div');
-  row.className='legend-row';
-
-  const circle=document.createElement('span');
-  circle.className='legend-circle';
-
-  const spec=empty
-    ?symbolSpec(null)
-    :symbolSpec(value);
-
-  circle.style.width=2*spec.radius+'px';
-  circle.style.height=2*spec.radius+'px';
-  circle.style.background=spec.fillColor;
-
-  if(empty){
-    circle.style.borderColor='#8a959d';
-  }
-
-  const txt=document.createElement('span');
-  txt.textContent=label;
-
-  row.append(circle,txt);
-  $('legendRows').append(row);
-}
-
-function renderLegend(){
-  $('legendRows').replaceChildren();
-
-  if(mapMaxDischarge>0){
-    for(const fraction of [0.01,0.1,0.35,1]){
-      const value=mapMaxDischarge*fraction;
-
-      addLegendRow(
-        value,
-        `${
-          value<1
-            ?value.toFixed(2)
-            :value.toFixed(1)
-        } Gt/yr`
-      );
-    }
-  }else{
-    addLegendRow(0,'0 Gt/yr');
-  }
-
-  addLegendRow(null,'No recent value',true);
-
-  $('legendDate').textContent=
-    `Scale uses latest available rate per gate
-    (within 12 months of ${mapReferenceMonth.slice(0,7)}).
-    Maximum: ${mapMaxDischarge.toFixed(1)} Gt/yr.`;
-}
-
-// =====================================================
-// GLACIER POINT STYLES
-// =====================================================
-
-function styleFor(id,picked=false){
-  const spec=markerSpecs[id];
+function style(id,active=false) {
+  const s = markerStyles[id];
 
   return new ol.style.Style({
     image:new ol.style.Circle({
-      radius:spec.radius+(picked?2:0),
-
-      fill:new ol.style.Fill({
-        color:spec.fillColor
-      }),
-
+      radius:s.radius+(active ? 2 : 0),
+      fill:new ol.style.Fill({color:s.fill}),
       stroke:new ol.style.Stroke({
-        color:picked?'#e6a526':spec.color,
-        width:picked?3:spec.weight
+        color:active ? '#e5a000' : s.stroke,
+        width:active ? 3 : 1.2
       })
     }),
-
-    // Small circles remain on top.
-    zIndex:Math.round(
-      10000-spec.radius*100
-    )
+    zIndex:active ? 20000 : Math.round(10000-s.radius*100)
   });
 }
 
-// =====================================================
-// GLACIER NAMES
-// =====================================================
+// MAP LEGEND
 
-function gateName(g){
-  if(!g)return '';
+function drawLegend() {
+  const el = $('legend');
+  el.replaceChildren();
 
-  const name=String(g.name||'')
-    .trim()
-    .replace(
-      /\s*\(Gate\s*#?\s*\d+\)\s*$/i,
-      ''
-    );
+  const values = mapMax > 0
+    ? [.01,.1,.35,1].map(v => mapMax*v)
+    : [0];
 
-  if(
-    !name ||
-    /^(none|nan|null|unknown|unnamed glacier)$/i.test(name) ||
-    /^gate\s*#?\s*\d+$/i.test(name)
-  ){
-    return '';
+  for (const value of [...values,null]) {
+    const s = sym(value);
+    const row = document.createElement('div');
+    const dot = document.createElement('span');
+    const label = document.createElement('span');
+
+    row.className = 'legend-row';
+    dot.className = 'legend-circle';
+    dot.style.width = dot.style.height = (s.radius*2)+'px';
+    dot.style.background = s.fill;
+
+    label.textContent = value === null
+      ? 'No recent value'
+      : (value < 1 ? value.toFixed(2) : value.toFixed(1))
+        +' Gt/yr';
+
+    row.append(dot,label);
+    el.append(row);
   }
 
-  return name;
+  $('legendDate').textContent =
+    'Latest gate value within 12 months of '+
+    refMonth.slice(0,7)+
+    '. Maximum '+mapMax.toFixed(1)+' Gt/yr.';
 }
 
-function gateTitle(g){
-  if(!g)return 'Gate unknown';
-
-  const name=gateName(g);
-
-  return name
-    ?`${name} (Gate ${g.id})`
-    :`Gate ${g.id}`;
-}
-
-function selectedName(){
-  const g=dataset?.gates?.find(
-    g=>String(g.id)===selected
-  );
-
-  return selected===null
-    ?'Greenland-wide discharge'
-    :gateTitle(g||{id:selected});
-}
-
-// =====================================================
 // RENDER GLACIER POINTS
-// =====================================================
 
-function renderGateMarkers(){
-  pointSource.clear();
-  markers={};
-  markerSpecs={};
+function drawPoints() {
+  points.clear();
+  features = {};
+  markerStyles = {};
   $('glaciers').replaceChildren();
 
-  const all=dataset.gates.filter(g=>
-    finite(g.lat)&&finite(g.lon)&&
-    g.lat>=55&&g.lat<=85&&
-    g.lon>=-75&&g.lon<=-10
+  const r = monthly(data.greenland)
+    .filter(p => finite(p.d)).at(-1);
+
+  refMonth = r?.date || '';
+
+  const valid = data.gates.filter(g =>
+    finite(g.lat) && finite(g.lon) &&
+    g.lat >= 55 && g.lat <= 85 &&
+    g.lon >= -75 && g.lon <= -10
   );
 
-  const reference=monthsFromSource(
-    dataset.greenland
-  ).filter(p=>finite(p.d)).at(-1);
+  const items = valid.map(g => ({g,p:recent(g.id)}));
 
-  mapReferenceMonth=reference
-    ?reference.date
-    :'';
+  mapMax = Math.max(0,...items.map(x => x.p?.d || 0));
 
-  const items=all.map(g=>({
-    g,
-    observation:recentGateRate(g.id)
-  }));
+  for(const {g,p} of items) {
+    const id = String(g.id);
 
-  mapMaxDischarge=Math.max(
-    0,
-    ...items.map(
-      item=>item.observation?.d||0
-    )
-  );
-
-  for(const {g,observation} of items){
-    const id=String(g.id);
-
-    const spec=symbolSpec(
-      observation?.d??null
-    );
-
-    const coordinate=ol.proj.transform(
+    const coordinate = ol.proj.transform(
       [g.lon,g.lat],
       'EPSG:4326',
       'EPSG:3413'
     );
 
-    const feature=new ol.Feature(
+    const f = new ol.Feature(
       new ol.geom.Point(coordinate)
     );
 
-    const when=observation?.date.slice(0,7)
-      ||'No recent observation';
-
-    feature.set('gateId',id);
-
-    feature.set(
+    f.set('id',id);
+    f.set(
       'tooltip',
-      `${gateTitle(g)} | ${
-        observation
-          ?observation.d.toFixed(2)+' Gt/yr'
-          :'No recent value'
-      } | ${when}`
+      gateTitle(g)+' · '+
+      (p ? p.d.toFixed(2)+' Gt/yr · '+p.date.slice(0,7)
+         : 'No recent observation')
     );
 
-    markers[id]=feature;
-    markerSpecs[id]=spec;
+    markerStyles[id] = sym(p?.d ?? null);
+    features[id] = f;
 
-    feature.setStyle(
-      styleFor(id)
-    );
+    f.setStyle(style(id));
+    points.addFeature(f);
 
-    pointSource.addFeature(feature);
-
-    const option=document.createElement('option');
-    option.value=gateTitle(g);
-
-    $('glaciers').append(option);
+    const opt = document.createElement('option');
+    opt.value = gateTitle(g);
+    $('glaciers').append(opt);
   }
 
-  renderLegend();
+  $('mapstatus').textContent =
+    items.length+' gates; '+
+    items.filter(x => x.p).length+
+    ' with recent discharge';
 
-  $('mapstatus').textContent=
-    `${items.length} gates; ${
-      items.filter(i=>i.observation).length
-    } with recent discharge`;
-
+  drawLegend();
   resetMap();
 }
 
-// =====================================================
-// DATA QUALITY
-// =====================================================
+// GRAPH
 
-function qualityReport(){
-  if(!dataset){
-    $('qa').textContent='No data loaded';
-    return;
-  }
-
-  const gs=dataset.gates||[];
-  const records=dataset.greenland||[];
-  const m=monthsFromSource(records);
-
-  const valid=m.filter(p=>finite(p.d));
-
-  const ids=new Set(
-    gs.map(g=>String(g.id))
-  );
-
-  const invalid=gs.filter(g=>
-    !finite(g.lat)||
-    !finite(g.lon)||
-    g.lat<55||
-    g.lat>85||
-    g.lon< -75||
-    g.lon> -10
-  ).length;
-
-  const duplicates=gs.length-ids.size;
-
-  const allMonths=(m.at(-1)&&m[0])
-    ?(
-      +(m.at(-1).date.slice(0,4))-
-      (+m[0].date.slice(0,4))
-    )*12+
-    (+m.at(-1).date.slice(5,7))-
-    (+m[0].date.slice(5,7))+1
-    :0;
-
-  const gaps=Math.max(0,allMonths-m.length)+
-    m.filter(p=>!finite(p.d)).length;
-
-  const rows=[
-    ['Discharge gates',gs.length],
-    ['Glacier names available',
-      gs.filter(g=>gateName(g)).length],
-    ['Greenland observations',records.length],
-    ['Available monthly bins',valid.length],
-    ['Missing months / empty bins',gaps],
-    ['Invalid coordinates',invalid],
-    ['Duplicate gate IDs',duplicates]
-  ];
-
-  const container=$('qa');
-  container.replaceChildren();
-
-  for(const [label,value] of rows){
-    const line=document.createElement('div');
-    line.className='item';
-
-    const left=document.createElement('span');
-    const right=document.createElement('strong');
-
-    left.textContent=label;
-    right.textContent=value;
-
-    line.append(left,right);
-    container.append(line);
-  }
-
-  const p=document.createElement('p');
-  const warnings=[];
-
-  if(invalid)warnings.push('Invalid gate coordinates');
-  if(duplicates)warnings.push('Duplicate gate IDs');
-  if(gaps)warnings.push('Missing monthly observations');
-
-  p.textContent=warnings.length
-    ?'Please review: '+warnings.join('; ')
-    :'Basic structural checks passed.';
-
-  p.className=warnings.length
-    ?'qa-warn'
-    :'qa-ok';
-
-  container.append(p);
+function series() {
+  return selected === null
+    ? data.greenland
+    : (data.series?.[selected] || []);
 }
 
-// =====================================================
-// DISCHARGE GRAPH
-// =====================================================
-
-function sourceSeries(){
-  return selected
-    ?dataset?.series?.[selected]||[]
-    :dataset?.greenland||[];
-}
-
-function render(){
-  const monthly=monthsFromSource(
-    sourceSeries()
+function render() {
+  const a = monthly(series());
+  const g = data.gates.find(
+    g => String(g.id) === selected
   );
 
-  $('selectiontitle').textContent=
-    selectedName();
+  const latest = a.filter(p => finite(p.d)).at(-1);
 
-  $('selectionmeta').textContent=selected
-    ?'Individual glacier discharge gate'
-    :'All Greenland outlets';
+  $('selectiontitle').textContent = g
+    ? gateTitle(g)
+    : 'Greenland-wide discharge';
 
-  $('gateLabel').textContent=selected
-    ?'Gate '+selected
-    :'All Greenland';
+  $('selectionmeta').textContent = g
+    ? 'Individual discharge gate'
+    : 'All Greenland outlets';
 
-  $('gateMeta').textContent=
-    'Monthly rate · Gt/yr';
+  $('gateLabel').textContent = g
+    ? 'Gate '+selected : 'All Greenland';
 
-  const latest=monthly.filter(
-    p=>finite(p.d)
-  ).at(-1);
+  $('latest').textContent = latest
+    ? latest.d.toFixed(1)+' Gt/yr' : '—';
 
-  $('latest').textContent=latest
-    ?fmt(latest.d)+' Gt/yr'
-    :'—';
+  $('latestdate').textContent = latest
+    ? latest.date.slice(0,7)+
+      (finite(latest.coverage)
+        ? ' · coverage '+Math.round(latest.coverage*100)+'%'
+        : '')
+    : 'No observations';
 
-  $('latestdate').textContent=latest
-    ?latest.date.slice(0,7)+(
-      finite(latest.coverage)
-        ?' · coverage '+
-          Math.round(latest.coverage*100)+'%'
-        :''
-    )
-    :'No observations';
+  let v = a;
+  const p = $('period').value;
 
-  let vals=monthly;
-
-  if(
-    $('period').value!=='all' &&
-    monthly.length
-  ){
-    const n=Number(
-      $('period').value
+  if(p !== 'all' && a.length) {
+    const [y,m] = a.at(-1).date.split('-').map(Number);
+    const cut = new Date(
+      Date.UTC(y-Number(p),m-1,1)
     );
 
-    const last=monthly.at(-1).date.slice(0,7);
-    const [yr,mo]=last.split('-').map(Number);
-
-    const limit=new Date(
-      Date.UTC(yr-n,mo-1,1)
-    );
-
-    vals=vals.filter(
-      p=>parseDate(p.date)>=limit
+    v = a.filter(
+      x => new Date(x.date+'T00:00:00Z') >= cut
     );
   }
 
-  const x=vals.map(p=>p.date);
-  const y=vals.map(p=>p.d);
+  const x = v.map(p => p.date);
+  const tr = [];
 
-  const traces=[];
+  if($('uncertainty').checked &&
+     v.some(p => finite(p.err))) {
 
-  if(
-    $('uncertainty').checked &&
-    vals.some(p=>finite(p.err))
-  ){
-    traces.push({
+    tr.push({
       x,
-      y:vals.map(p=>
+      y:v.map(p =>
         finite(p.d)&&finite(p.err)
-          ?p.d+p.err
-          :null
+          ? p.d+p.err : null
       ),
       line:{width:0},
       hoverinfo:'skip',
       showlegend:false
     });
 
-    traces.push({
+    tr.push({
       x,
-      y:vals.map(p=>
+      y:v.map(p =>
         finite(p.d)&&finite(p.err)
-          ?p.d-p.err
-          :null
+          ? p.d-p.err : null
       ),
+      line:{width:0},
       fill:'tonexty',
-      fillcolor:'rgba(144,27,49,.11)',
-      line:{width:0},
+      fillcolor:'rgba(144,27,49,.12)',
       hoverinfo:'skip',
       showlegend:false
     });
   }
 
-  traces.push({
+  tr.push({
     x,
-    y,
-    type:'scatter',
+    y:v.map(p => p.d),
     mode:'lines',
+    type:'scatter',
     connectgaps:false,
-
-    line:{
-      color:'#901b31',
-      width:2
-    },
-
-    name:'Monthly discharge',
-
+    line:{color:'#901b31',width:2},
+    name:'Discharge',
     hovertemplate:
-      '%{x|%b %Y}<br>'+
-      '%{y:.2f} Gt/yr<extra></extra>'
+      '%{x|%b %Y}<br>%{y:.2f} Gt/yr<extra></extra>'
   });
 
   Plotly.react(
     'chart',
-    traces,
+    tr,
     {
-      margin:{
-        l:57,r:15,t:18,b:40
-      },
-      paper_bgcolor:'white',
-      plot_bgcolor:'white',
-
-      xaxis:{
-        gridcolor:'#e9eef1'
-      },
-
+      margin:{l:57,r:15,t:18,b:40},
+      xaxis:{gridcolor:'#e9eef1'},
       yaxis:{
         title:'Discharge (Gt/yr)',
         rangemode:'tozero',
         gridcolor:'#e9eef1'
       },
-
       showlegend:false,
       hovermode:'x unified'
     },
@@ -1314,71 +873,67 @@ function render(){
     }
   );
 
-  const csv=[
+  const csv = [
     'month,discharge_Gt_per_year,uncertainty,coverage,samples',
-    ...vals.map(p=>[
+    ...v.map(p => [
       p.date.slice(0,7),
-      p.d??'',
-      p.err??'',
-      p.coverage??'',
-      p.samples??''
+      p.d ?? '',
+      p.err ?? '',
+      p.coverage ?? '',
+      p.samples
     ].join(','))
   ].join('\n');
 
-  $('csvDownload').href=
-    'data:text/csv;charset=utf-8,'+
-    encodeURIComponent(csv);
+  $('csvDownload').href =
+    'data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
 
-  $('csvDownload').download=
-    (selected?'gate_'+selected:'greenland')+
+  $('csvDownload').download =
+    (selected ? 'gate_'+selected : 'greenland')+
     '_monthly.csv';
 }
 
-// =====================================================
-// SELECTION
-// =====================================================
+// INTERACTIONS
 
-function choose(id){
-  selected=id===null
-    ?null
-    :String(id);
+function choose(id) {
+  selected = id === null ? null : String(id);
 
-  for(const [key,feature] of Object.entries(markers)){
-    feature.setStyle(
-      styleFor(key,key===selected)
-    );
+  for(const [key,f] of Object.entries(features)) {
+    f.setStyle(style(key,key === selected));
   }
 
-  $('search').value=selected
-    ?selectedName()
-    :'';
+  const g = data.gates.find(
+    g => String(g.id) === selected
+  );
+
+  $('search').value = selected === null
+    ? ''
+    : g ? gateTitle(g) : 'Gate '+selected;
 
   render();
 }
 
-$('reset').onclick=()=>{
+$('reset').onclick = () => {
   choose(null);
   resetMap();
 };
 
-$('period').onchange=render;
-$('uncertainty').onchange=render;
+$('period').onchange = render;
+$('uncertainty').onchange = render;
 
-$('search').onchange=()=>{
-  const v=$('search').value.trim().toLowerCase();
+$('search').onchange = () => {
+  const q = $('search').value.trim().toLowerCase();
 
-  if(!v)return;
-
-  const g=dataset?.gates?.find(g=>
-    gateTitle(g).toLowerCase()===v||
-    gateName(g).toLowerCase()===v||
-    String(g.id).toLowerCase()===v||
-    ('gate '+g.id).toLowerCase()===v
+  const g = data.gates.find(g =>
+    [
+      gateTitle(g),
+      gateName(g),
+      String(g.id),
+      'gate '+g.id
+    ].some(v => v.toLowerCase() === q)
   );
 
-  if(g){
+  if(g) {
     choose(g.id);
-
     view.animate({
       center:ol.proj.transform(
         [g.lon,g.lat],
@@ -1386,84 +941,101 @@ $('search').onchange=()=>{
         'EPSG:3413'
       ),
       zoom:5,
-      duration:300
+      duration:250
     });
   }
 };
 
-// =====================================================
-// LOAD DATA
-// =====================================================
+// DATA QUALITY
 
-async function start(){
-  try{
-    const r=await fetch(
-      'data/dashboard.json?ts='+Date.now()
+function qa() {
+  const m = monthly(data.greenland);
+  const ids = data.gates.map(g => String(g.id));
+  const months = m.filter(p => finite(p.d));
+
+  const invalid = data.gates.filter(g =>
+    !finite(g.lat) || !finite(g.lon) ||
+    g.lat < 55 || g.lat > 85 ||
+    g.lon < -75 || g.lon > -10
+  ).length;
+
+  const total = m.length
+    ? monthNumber(m.at(-1).date)-
+      monthNumber(m[0].date)+1
+    : 0;
+
+  const rows = [
+    ['Discharge gates',data.gates.length],
+    ['Glacier names available',
+      data.gates.filter(g => gateName(g)).length],
+    ['Greenland observations',data.greenland.length],
+    ['Monthly bins',months.length],
+    ['Date span',
+      m.length
+        ? m[0].date.slice(0,7)+' to '+
+          m.at(-1).date.slice(0,7)
+        : 'none'],
+    ['Missing months',total-months.length],
+    ['Invalid coordinates',invalid],
+    ['Duplicate gate IDs',
+      ids.length-new Set(ids).size]
+  ];
+
+  $('qa').replaceChildren();
+
+  for(const [k,v] of rows) {
+    const el = document.createElement('div');
+    el.className = 'item';
+
+    const left = document.createElement('span');
+    const right = document.createElement('strong');
+
+    left.textContent = k;
+    right.textContent = v;
+
+    el.append(left,right);
+    $('qa').append(el);
+  }
+}
+
+// LOAD DATA
+
+async function start() {
+  try {
+    const res = await fetch(
+      'data/dashboard.json?t='+Date.now()
     );
 
-    if(!r.ok){
-      throw Error(
-        'dashboard.json missing (HTTP '+r.status+')'
-      );
+    if(!res.ok) {
+      throw Error('dashboard.json: HTTP '+res.status);
     }
 
-    const d=await r.json();
+    const d = await res.json();
 
-    if(
-      !Array.isArray(d.greenland)||
-      !d.greenland.length||
-      !Array.isArray(d.gates)||
-      !d.gates.length
-    ){
-      throw Error(
-        'Data missing Greenland series or gates'
-      );
+    if(!Array.isArray(d.gates) || !d.gates.length ||
+       !Array.isArray(d.greenland) || !d.greenland.length) {
+      throw Error('Missing gates or Greenland time series');
     }
 
-    dataset=d;
-
+    data = d;
     $('message').classList.add('hidden');
 
-    $('version').textContent=d.version
-      ?'GEUS version: '+d.version
-      :'';
+    $('version').textContent = d.version
+      ? 'GEUS dataset: '+d.version
+      : '';
 
-    renderGateMarkers();
-    qualityReport();
+    drawPoints();
+    qa();
     render();
 
-  }catch(err){
+  } catch(e) {
     $('message').classList.remove('hidden');
-
-    $('message').textContent=
-      'Dashboard error: '+err.message;
-
-    $('mapstatus').textContent=
-      'Gate points could not be loaded';
-
-    $('qa').textContent=
-      'Data quality check unavailable';
-
-    if(typeof Plotly!=='undefined'){
-      Plotly.react(
-        'chart',
-        [],
-        {
-          annotations:[{
-            text:'Data not loaded',
-            showarrow:false
-          }],
-          xaxis:{visible:false},
-          yaxis:{visible:false}
-        },
-        {responsive:true}
-      );
-    }
+    $('message').textContent = 'Data error: '+e.message;
+    $('mapstatus').textContent = 'Gate points unavailable';
   }
 }
 
 start();
-
 </script>
 </body>
 </html>
