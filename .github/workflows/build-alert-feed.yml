@@ -1,1 +1,226 @@
 
+name: Build compact glacier alert feed
+
+on:
+  workflow_run:
+    workflows: ["Update PROMICE discharge"]
+    types: [completed]
+  schedule:
+    - cron: '37 */4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: glacier-alert-feed
+  cancel-in-progress: false
+
+jobs:
+  build-feed:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the latest main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Build a small JSON file for Google Apps Script
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import math
+          import re
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          source_path = Path('data/dashboard.json')
+          output_path = Path('data/alert_feed.json')
+
+          if not source_path.is_file():
+              raise SystemExit(
+                  'Missing data/dashboard.json; check the update workflow'
+              )
+
+          data = json.loads(
+              source_path.read_text(encoding='utf-8')
+          )
+
+          gates = data.get('gates', [])
+          series = data.get('series', {})
+
+          if (
+              not isinstance(gates, list)
+              or not gates
+              or not isinstance(series, dict)
+          ):
+              raise SystemExit(
+                  'Dashboard data does not contain gates and series'
+              )
+
+          first_year = datetime.now(timezone.utc).year - 8
+
+          def number(value):
+              if value is None or isinstance(value, bool):
+                  return None
+
+              try:
+                  n = float(value)
+                  return n if math.isfinite(n) else None
+              except (TypeError, ValueError):
+                  return None
+
+          def monthly(rows):
+              grouped = {}
+
+              for row in rows or []:
+                  if not isinstance(row, dict):
+                      continue
+
+                  date = str(row.get('date', ''))
+
+                  if not re.match(
+                      r'^\d{4}-\d{2}-\d{2}$',
+                      date
+                  ):
+                      continue
+
+                  if int(date[:4]) < first_year:
+                      continue
+
+                  discharge = number(row.get('d'))
+
+                  if discharge is None:
+                      continue
+
+                  month = date[:7]
+
+                  entry = grouped.setdefault(
+                      month,
+                      {'d': [], 'coverage': []}
+                  )
+
+                  entry['d'].append(discharge)
+
+                  coverage = number(
+                      row.get('coverage')
+                  )
+
+                  if coverage is not None:
+                      if 1 < coverage <= 100:
+                          coverage /= 100
+
+                      if 0 <= coverage <= 1:
+                          entry['coverage'].append(
+                              coverage
+                          )
+
+              result = []
+
+              for month in sorted(grouped):
+                  values = grouped[month]
+
+                  result.append({
+                      'date': month + '-01',
+                      'd': round(
+                          sum(values['d']) /
+                          len(values['d']),
+                          6
+                      ),
+                      'coverage': (
+                          round(
+                              sum(values['coverage']) /
+                              len(values['coverage']),
+                              6
+                          )
+                          if values['coverage']
+                          else None
+                      )
+                  })
+
+              return result
+
+          mini_gates = [
+              {
+                  'id': g['id'],
+                  'name': g.get('name', '')
+              }
+              for g in gates
+              if isinstance(g, dict) and 'id' in g
+          ]
+
+          mini_series = {
+              str(g['id']): monthly(
+                  series.get(str(g['id']), [])
+              )
+              for g in mini_gates
+          }
+
+          mini = {
+              'version': data.get('version', ''),
+              'gates': mini_gates,
+              'greenland': monthly(
+                  data.get('greenland', [])
+              ),
+              'series': mini_series
+          }
+
+          if not any(mini_series.values()):
+              raise SystemExit(
+                  'No discharge observations in alert feed'
+              )
+
+          content = json.dumps(
+              mini,
+              ensure_ascii=False,
+              separators=(',', ':'),
+              allow_nan=False
+          )
+
+          size_bytes = len(
+              content.encode('utf-8')
+          )
+
+          if size_bytes > 10 * 1024 * 1024:
+              raise SystemExit(
+                  'Alert feed unexpectedly exceeds 10 MiB'
+              )
+
+          output_path.parent.mkdir(
+              parents=True,
+              exist_ok=True
+          )
+
+          output_path.write_text(
+              content,
+              encoding='utf-8'
+          )
+
+          print(
+              'Alert feed: {} gates, {} monthly observations, {:,} bytes'.format(
+                  len(mini_gates),
+                  sum(map(len, mini_series.values())),
+                  size_bytes
+              )
+          )
+          PY
+
+      - name: Commit updated alert feed
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          git add data/alert_feed.json
+
+          if git diff --cached --quiet; then
+            echo 'Alert feed already up to date.'
+          else
+            git commit -m 'Update compact glacier alert feed'
+            git push origin HEAD:main
+          fi
+
