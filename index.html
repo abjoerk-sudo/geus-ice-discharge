@@ -2,8 +2,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Greenland Ice Discharge | UCPH</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -12,633 +11,253 @@
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
 :root{--red:#901b31;--ink:#172937;--muted:#60717d;--bg:#f3f6f8;--line:#dce3e8;--gold:#ffd260}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
-header{background:#fff;border-bottom:4px solid var(--red);padding:15px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-h1{font-size:24px;margin:0 0 5px}
-header p{font-size:12px;color:var(--muted);margin:0}
-.logo{font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--red);text-align:right}
-main{max-width:1780px;margin:auto;padding:16px;display:grid;gap:16px;grid-template-columns:minmax(390px,1.1fr) minmax(410px,.9fr)}
-section{background:#fff;border:1px solid var(--line);border-radius:11px;box-shadow:0 2px 10px #1020300a;overflow:hidden}
-.pane-title{padding:13px 15px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:10px}
-.pane-title h2{font-size:16px;margin:0}
-.sub{color:var(--muted);font-size:12px}
-.maparea{position:relative}
-#map{height:min(76vh,770px);min-height:520px;background:#dfe8ef}
-.map-note{position:absolute;bottom:12px;left:13px;z-index:600;background:#fffffff0;border-radius:7px;padding:9px 11px;font-size:11px;color:#334954;max-width:350px;box-shadow:0 1px 8px #0002}
-.map-note small{display:block;color:#60717d;margin-top:5px}
-.map-legend{position:absolute;top:12px;right:12px;z-index:600;padding:8px 10px;background:#fffffff0;border-radius:7px;font-size:11px;box-shadow:0 1px 6px #0002}
-.legend-dot{display:inline-block;width:11px;height:11px;border-radius:50%;background:#fff;border:2px solid var(--red);vertical-align:middle;margin-right:5px}
-aside{display:flex;flex-direction:column;gap:15px}
-.controls{padding:14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}
-input,select,button{font:inherit;border:1px solid #cbd5db;border-radius:6px;background:#fff;padding:10px;color:var(--ink)}
-button{cursor:pointer}
-button.active,button.primary{background:var(--red);color:white;border-color:var(--red)}
-.buttons{display:flex;gap:5px}
-.buttons button{font-size:12px;padding:8px 12px}
-.statrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 10px}
-.stat{border:1px solid var(--line);border-radius:7px;padding:11px}
-.stat label{font-size:11px;color:var(--muted);display:block}
-.stat strong{display:block;font-size:21px;margin-top:5px}
-.graph{height:335px}
-.foot{padding:11px 14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.6}
-a{color:#9b1930}
-#message{margin:0 14px 12px;padding:10px;border-radius:7px;background:#fff6e8;color:#6b4c11;font-size:12px}
-.hidden{display:none!important}
-#qa{padding:14px;line-height:1.6;font-size:12px}
-#qa .item{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding:5px 0}
-#qa .item strong{text-align:right}
-#qa p{margin:6px 0 0;color:#7a4c19}
-.leaflet-container{font-family:inherit}
-.leaflet-tooltip{font-size:12px}
-.qa-ok{color:#326a4b}
-.qa-warn{color:#a1511f}
-@media(max-width:950px){
-main{grid-template-columns:1fr}
-#map{height:560px}
-header{padding:12px}
-h1{font-size:20px}
-}
-@media(max-width:530px){
-main{padding:8px}
-.controls{grid-template-columns:1fr}
-.statrow{grid-template-columns:1fr 1fr}
-header .logo{font-size:10px}
-#map{min-height:440px;height:55vh}
-.map-legend{max-width:155px}
-}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}header{background:#fff;border-bottom:4px solid var(--red);padding:15px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px}h1{font-size:24px;margin:0 0 5px}header p{font-size:12px;color:var(--muted);margin:0}.logo{font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--red);text-align:right}main{max-width:1780px;margin:auto;padding:16px;display:grid;gap:16px;grid-template-columns:minmax(390px,1.1fr) minmax(410px,.9fr)}section{background:#fff;border:1px solid var(--line);border-radius:11px;box-shadow:0 2px 10px #1020300a;overflow:hidden}.pane-title{padding:13px 15px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:10px}.pane-title h2{font-size:16px;margin:0}.sub{color:var(--muted);font-size:12px}.maparea{position:relative}#map{height:min(76vh,770px);min-height:520px;background:#dfe8ef}.map-note{position:absolute;bottom:12px;left:13px;z-index:600;background:#fffffff0;border-radius:7px;padding:9px 11px;font-size:11px;color:#334954;max-width:350px;box-shadow:0 1px 8px #0002}.map-note small{display:block;color:#60717d;margin-top:5px}.map-legend{position:absolute;top:12px;right:12px;z-index:600;padding:12px;background:#fffffff0;border-radius:7px;font-size:12px;box-shadow:0 1px 6px #0002;min-width:195px;max-width:230px}.map-legend .legend-header{font-weight:700;margin-bottom:4px}.legend-row{display:flex;align-items:center;gap:10px;min-height:29px}.legend-circle{display:inline-block;flex:none;border-radius:50%;border:1px solid #23445a}.legend-note{display:block;margin-top:7px;color:#60717d;font-size:10px;line-height:1.4}.legend-dot{display:inline-block;width:11px;height:11px;border-radius:50%;background:#fff;border:2px solid var(--red);vertical-align:middle;margin-right:5px}aside{display:flex;flex-direction:column;gap:15px}.controls{padding:14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px}input,select,button{font:inherit;border:1px solid #cbd5db;border-radius:6px;background:#fff;padding:10px;color:var(--ink)}button{cursor:pointer}button.active,button.primary{background:var(--red);color:white;border-color:var(--red)}.buttons{display:flex;gap:5px}.buttons button{font-size:12px;padding:8px 12px}.statrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 10px}.stat{border:1px solid var(--line);border-radius:7px;padding:11px}.stat label{font-size:11px;color:var(--muted);display:block}.stat strong{display:block;font-size:21px;margin-top:5px}.graph{height:335px}.foot{padding:11px 14px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);line-height:1.6}a{color:#9b1930}#message{margin:0 14px 12px;padding:10px;border-radius:7px;background:#fff6e8;color:#6b4c11;font-size:12px}.hidden{display:none!important}#qa{padding:14px;line-height:1.6;font-size:12px}#qa .item{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding:5px 0}#qa .item strong{text-align:right}#qa p{margin:6px 0 0;color:#7a4c19}.leaflet-container{font-family:inherit}.leaflet-tooltip{font-size:12px}.qa-ok{color:#326a4b}.qa-warn{color:#a1511f}@media(max-width:950px){main{grid-template-columns:1fr}#map{height:560px}header{padding:12px}h1{font-size:20px}}@media(max-width:530px){main{padding:8px}.controls{grid-template-columns:1fr}.statrow{grid-template-columns:1fr 1fr}header .logo{font-size:10px}#map{min-height:440px;height:55vh}.map-legend{max-width:155px}}
 </style>
 </head>
 <body>
-<header>
-  <div>
-    <h1>Greenland Ice Discharge</h1>
-    <p>Monthly outlet-glacier monitoring · PROMICE / GEUS</p>
-  </div>
-  <div class="logo">UNIVERSITY OF<br>COPENHAGEN</div>
-</header>
+<header><div><h1>Greenland Ice Discharge</h1><p>Monthly outlet-glacier monitoring · PROMICE / GEUS</p></div><div class="logo">UNIVERSITY OF<br>COPENHAGEN</div></header>
 <main>
 <section>
- <div class="pane-title">
-  <h2>Glacier selector · Greenland</h2>
-  <select id="basemap" aria-label="Map background">
-   <option value="velocity">NASA velocity (older map)</option>
-   <option value="physical">Physical background · NASA</option>
-   <option value="reference" disabled>Multi-year velocity (not installed)</option>
-  </select>
- </div>
- <div class="maparea">
-  <div id="map" aria-label="Interactive Greenland map"></div>
-  <div class="map-legend">
-   <span class="legend-dot"></span> Clickable discharge gate
-  </div>
-  <div class="map-note">
-   <strong>Choose a glacier</strong> by clicking a white point with a red outline, or use the search field.
-   <small id="mapstatus">Loading points…</small>
-   <small>NASA velocity: older reference layer. Unmeasured areas show the underlying physical map. Multi-year NSIDC-0670 can be added as local map tiles later.</small>
-  </div>
- </div>
+ <div class="pane-title"><h2>Glacier selector · Greenland</h2><select id="basemap" aria-label="Map background"><option value="velocity">Ice velocity (NASA)</option><option value="satellite">Satellite imagery</option><option value="simple">Simple geographic map</option></select></div>
+ <div class="maparea"><div id="map" aria-label="Interactive Greenland map"></div><div class="map-legend"><div class="legend-header">Ice discharge · Gt/yr</div><div class="sub">Circle size and shade</div><div id="legendRows" aria-label="Discharge point legend">Loading…</div><small id="legendDate" class="legend-note"></small></div><div class="map-note"><strong>Choose a glacier</strong> by clicking a coloured circle, or use the search field.<small id="mapstatus">Loading points…</small><small>Circles use latest available monthly discharge rates (Gt/yr), not ice-flow speed. NASA velocity is a reference map with coverage gaps.</small></div></div>
 </section>
 <aside>
 <section>
- <div class="pane-title">
-  <div>
-   <h2 id="selectiontitle">Greenland-wide discharge</h2>
-   <span id="selectionmeta" class="sub">All Greenland discharge</span>
-  </div>
-  <button id="reset" type="button">Greenland overview</button>
- </div>
- <div class="controls">
-  <input id="search" placeholder="Search Glacier name (Gate #)" list="glaciers" aria-label="Search glacier">
-  <datalist id="glaciers"></datalist>
-  <select id="period" aria-label="Time period">
-   <option value="all">Entire record</option>
-   <option value="10">Last 10 years</option>
-   <option value="3">Last 3 years</option>
-   <option value="1">Last year</option>
-  </select>
-  <label class="sub" style="align-self:center">
-   <input type="checkbox" id="uncertainty" checked>
-   Uncertainty band
-  </label>
- </div>
- <div class="statrow">
-  <div class="stat">
-   <label>Latest monthly discharge rate</label>
-   <strong id="latest">—</strong>
-   <span id="latestdate" class="sub">Not loaded</span>
-  </div>
-  <div class="stat">
-   <label>Selected gate</label>
-   <strong id="gateLabel">All Greenland</strong>
-   <span id="gateMeta" class="sub">Monthly discharge · Gt/yr</span>
-  </div>
- </div>
- <div id="message">Loading published PROMICE data…</div>
- <div id="chart" class="graph"></div>
- <div class="foot">
-  Each plotted point is a monthly discharge rate (Gt/yr), not monthly mass loss (Gt). Months with multiple source observations are represented by their arithmetic mean. Review source coverage before interpreting gaps or anomalies.
-  <span id="version"></span>
- </div>
+ <div class="pane-title"><div><h2 id="selectiontitle">Greenland-wide discharge</h2><span id="selectionmeta" class="sub">All Greenland discharge</span></div><button id="reset" type="button">Greenland overview</button></div>
+ <div class="controls"><input id="search" placeholder="Search Glacier name (Gate #)" list="glaciers" aria-label="Search glacier"><datalist id="glaciers"></datalist><select id="period" aria-label="Time period"><option value="all">Entire record</option><option value="10">Last 10 years</option><option value="3">Last 3 years</option><option value="1">Last year</option></select><label class="sub" style="align-self:center"><input type="checkbox" id="uncertainty" checked> Uncertainty band</label></div>
+ <div class="statrow"><div class="stat"><label>Latest monthly discharge rate</label><strong id="latest">—</strong><span id="latestdate" class="sub">Not loaded</span></div><div class="stat"><label>Selected gate</label><strong id="gateLabel">All Greenland</strong><span id="gateMeta" class="sub">Monthly discharge · Gt/yr</span></div></div>
+ <div id="message">Loading published PROMICE data…</div><div id="chart" class="graph"></div><div class="foot">Each plotted point is a monthly discharge rate (Gt/yr), not monthly mass loss (Gt). Months with multiple source observations are represented by their arithmetic mean. Review source coverage before interpreting gaps or anomalies. <span id="version"></span></div>
 </section>
-<section>
- <div class="pane-title">
-  <h2>Data quality check</h2>
-  <span class="sub">Automatic basic validation</span>
- </div>
- <div id="qa">Waiting for data…</div>
-</section>
-<section>
- <div class="pane-title"><h2>Source and export</h2></div>
- <div class="foot">
-  Discharge:
-  <a href="https://doi.org/10.22008/promice/data/ice_discharge/d/v02" target="_blank" rel="noopener">PROMICE / GEUS</a> ·
-  <a href="https://doi.org/10.5194/essd-12-1367-2020" target="_blank" rel="noopener">Mankoff et al. (2020)</a> ·
-  <a href="https://github.com/GEUS-PROMICE/ice_discharge/issues" target="_blank" rel="noopener">Processing issues</a>
-  <br>
-  Velocity background:
-  <a href="https://worldview.earthdata.nasa.gov/?p=arctic&l=BlueMarble_NextGeneration,MEaSUREs_Ice_Velocity_Greenland,Coastlines" target="_blank" rel="noopener">NASA GIBS reference layer</a>.
-  Recommended fuller multi-year alternative:
-  <a href="https://nsidc.org/data/nsidc-0670/versions/1" target="_blank" rel="noopener">NSIDC-0670 (1995–2015)</a>;
-  available after making and uploading local web tiles.
-  The background is not contemporary with the latest discharge.
-  <br>
-  <a id="csvDownload" href="#" download="discharge.csv">
-   Download displayed time series (CSV)
-  </a>
- </div>
-</section>
+<section><div class="pane-title"><h2>Data quality check</h2><span class="sub">Automatic basic validation</span></div><div id="qa">Waiting for data…</div></section>
+<section><div class="pane-title"><h2>Source and export</h2></div><div class="foot">Discharge: <a href="https://doi.org/10.22008/promice/data/ice_discharge/d/v02" target="_blank" rel="noopener">PROMICE / GEUS</a> · <a href="https://doi.org/10.5194/essd-12-1367-2020" target="_blank" rel="noopener">Mankoff et al. (2020)</a> · <a href="https://github.com/GEUS-PROMICE/ice_discharge/issues" target="_blank" rel="noopener">Processing issues</a><br>Velocity background: <a href="https://worldview.earthdata.nasa.gov/?p=arctic&l=BlueMarble_NextGeneration,MEaSUREs_Ice_Velocity_Greenland,Coastlines" target="_blank" rel="noopener">NASA GIBS reference layer</a>. Satellite and simple geographic map are available in the layer menu. NASA velocity is historical and not contemporary with the latest discharge.<br><a id="csvDownload" href="#" download="discharge.csv">Download displayed time series (CSV)</a></div></section>
 </aside>
 </main>
 <script>
 'use strict';
-
 const $=id=>document.getElementById(id);
 const finite=v=>typeof v==='number'&&Number.isFinite(v);
 const fmt=(v,n=1)=>finite(v)?v.toFixed(n):'—';
 const parseDate=date=>new Date(date+'T00:00:00Z');
-
 let dataset=null,selected=null,markers={};
-
-const crs=new L.Proj.CRS(
- 'EPSG:3413',
- '+proj=stere +lat_0=90 +lat_ts=70 +lon_0=-45 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs',
- {
-  origin:[-4194304,4194304],
-  resolutions:[8192,4096,2048,1024,512,256],
-  bounds:L.bounds([[-4194304,-4194304],[4194304,4194304]])
- }
-);
-
-const map=L.map('map',{
- crs,zoomControl:true,maxZoom:5,minZoom:0,preferCanvas:true
-});
-
+const crs=new L.Proj.CRS('EPSG:3413','+proj=stere +lat_0=90 +lat_ts=70 +lon_0=-45 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs',{origin:[-4194304,4194304],resolutions:[8192,4096,2048,1024,512,256],bounds:L.bounds([[-4194304,-4194304],[4194304,4194304]])});
+const map=L.map('map',{crs,zoomControl:true,maxZoom:5,minZoom:0,preferCanvas:true});
 const greenlandBounds=L.latLngBounds([59,-74],[84,-10]);
-
-function resetMap(){
- map.fitBounds(greenlandBounds,{padding:[23,23],maxZoom:3});
-}
+function resetMap(){map.fitBounds(greenlandBounds,{padding:[23,23],maxZoom:3});}
 resetMap();
-
 const credits='<a href="https://earthdata.nasa.gov/gibs" target="_blank">NASA ESDIS GIBS</a>';
-
 const physical=L.tileLayer(
  'https://gibs.earthdata.nasa.gov/wmts/epsg3413/best/BlueMarble_ShadedRelief_Bathymetry/default/500m/{z}/{y}/{x}.jpeg',
- {
-  attribution:credits,tileSize:512,maxNativeZoom:4,maxZoom:5,
-  noWrap:true,continuousWorld:true
- }
+ {attribution:credits,tileSize:512,maxNativeZoom:4,maxZoom:5,noWrap:true}
 );
-
+const satellite=L.tileLayer(
+ 'https://gibs.earthdata.nasa.gov/wmts/epsg3413/best/BlueMarble_NextGeneration/default/500m/{z}/{y}/{x}.jpeg',
+ {attribution:credits+' · Blue Marble',tileSize:512,maxNativeZoom:4,maxZoom:5,noWrap:true}
+);
 const velocity=L.tileLayer(
  'https://gibs.earthdata.nasa.gov/wmts/epsg3413/best/MEaSUREs_Ice_Velocity_Greenland/default/500m/{z}/{y}/{x}',
- {
-  attribution:credits+' · MEaSUREs Greenland ice velocity',
-  tileSize:512,maxNativeZoom:4,maxZoom:5,
-  noWrap:true,continuousWorld:true,opacity:.94
- }
+ {attribution:credits+' · MEaSUREs ice velocity',tileSize:512,maxNativeZoom:4,maxZoom:5,noWrap:true,opacity:.92}
 );
-
 physical.addTo(map);
 velocity.addTo(map);
-
-let multiYear = null;
-
-function setBackground(which) {
- if (map.hasLayer(velocity)) map.removeLayer(velocity);
- if (multiYear && map.hasLayer(multiYear)) map.removeLayer(multiYear);
- if (which === 'velocity') velocity.addTo(map);
- if (which === 'reference' && multiYear) multiYear.addTo(map);
+function setBackground(which){
+ for(const layer of [physical,satellite,velocity]){
+  if(map.hasLayer(layer))map.removeLayer(layer);
+ }
+ if(which==='satellite')satellite.addTo(map);
+ else{
+  physical.addTo(map);
+  if(which==='velocity')velocity.addTo(map);
+ }
 }
-
 $('basemap').onchange=()=>setBackground($('basemap').value);
-
-// Future multi-year velocity tiles.
-// Loaded only if velocity/manifest.json is available.
-
-fetch('velocity/manifest.json',{cache:'no-store'})
-.then(r=>{
- if(!r.ok)return null;
- return r.json();
-})
-.then(manifest=>{
- if(!manifest || manifest.crs!=='EPSG:3413' || manifest.tileSize!==512)return;
-
- multiYear=L.tileLayer('velocity/tiles/{z}/{y}/{x}.png',{
-  attribution:'NASA NSIDC-0670 · 1995–2015 multi-year velocity',
-  tileSize:512,
-  minNativeZoom:0,
-  maxNativeZoom:manifest.maxZoom||4,
-  maxZoom:5,
-  noWrap:true,
-  opacity:.94,
-  errorTileUrl:''
- });
-
- const opt=$('basemap').querySelector('option[value="reference"]');
- opt.disabled=false;
- opt.textContent='Multi-year velocity · 1995–2015';
-})
-.catch(()=>{});
-
 const pointLayer=L.layerGroup().addTo(map);
 L.control.scale({imperial:false,position:'bottomright'}).addTo(map);
-
-function monthsFromSource(source) {
+function monthsFromSource(source){
+ // The source may contain observations more frequent than monthly. Convert rates to monthly bins.
+ // With irregular acquisition intervals, this is the arithmetic mean of available rates,
+ // NOT a time-integrated mass flux nor a claim that all days are observed.
  if(!Array.isArray(source))return [];
-
  const grouped=new Map();
-
- for(const p of source) {
-  if(!p || typeof p.date!=='string' ||
-     !/^\d{4}-\d{2}-\d{2}$/.test(p.date))continue;
-
-  const key=p.date.slice(0,7);
-
-  if(!grouped.has(key))grouped.set(key,[]);
-  grouped.get(key).push(p);
- }
-
- return [...grouped.entries()]
- .sort(([a],[b])=>a.localeCompare(b))
- .map(([key,points])=>{
-  const valid=points.filter(p=>finite(p.d));
-
-  const mean=field=>{
-   const vs=valid.map(p=>p[field]).filter(finite);
-   return vs.length
-    ? vs.reduce((a,b)=>a+b,0)/vs.length
-    : null;
-  };
-
-  return {
-   date:key+'-01',
-   d:mean('d'),
-   err:mean('err'),
-   coverage:mean('coverage'),
-   samples:valid.length
-  };
+ for(const p of source){if(!p||typeof p.date!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(p.date))continue;
+   const key=p.date.slice(0,7);if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(p);}
+ return [...grouped.entries()].sort(([a],[b])=>a.localeCompare(b)).map(([key,points])=>{
+   const valid=points.filter(p=>finite(p.d));
+   const mean=field=>{const vs=valid.map(p=>p[field]).filter(finite);return vs.length?vs.reduce((a,b)=>a+b,0)/vs.length:null;};
+   return {date:key+'-01',d:mean('d'),err:mean('err'),coverage:mean('coverage'),samples:valid.length};
  });
 }
-
-function gateName(g) {
- if(!g)return 'Unknown glacier';
-
- const name=String(g.name||'')
-  .trim()
-  .replace(/\s*\(Gate\s*#?\s*\d+\)\s*$/i,'');
-
- if(!name ||
-    /^gate[ #]*\d+$/i.test(name) ||
-    /^(none|nan|null|unknown)$/i.test(name)) {
-  return 'Unnamed glacier';
+// Map markers are encoded by the most recent monthly rate at each gate.
+// No value from another gate is substituted, and any rate older than 12 months
+// relative to the latest Greenland-wide record is shown as unavailable.
+let markerSpecs={};
+let mapMaxDischarge=0;
+let mapReferenceMonth='';
+function monthIndex(date){
+ const m=String(date).match(/^(\d{4})-(\d{2})/);
+ return m?Number(m[1])*12+Number(m[2])-1:null;
+}
+function recentGateRate(gid){
+ const observations=monthsFromSource(dataset?.series?.[String(gid)]||[]);
+ const valid=observations.filter(p=>finite(p.d) && p.d>=0);
+ const latest=valid.at(-1);
+ const age=latest && monthIndex(mapReferenceMonth)!==null
+  ? monthIndex(mapReferenceMonth)-monthIndex(latest.date):Infinity;
+ return latest && age>=0 && age<=12 ? latest : null;
+}
+function symbolSpec(value){
+ if(!finite(value))return {radius:3.4,color:'#9aa5ae',fillColor:'#c4cbd1',weight:1};
+ const t=mapMaxDischarge>0
+  ? Math.min(1,Math.log1p(Math.max(0,value))/Math.log1p(mapMaxDischarge)) : 0;
+ const low=[195,221,240], high=[12,47,86];
+ const rgb=low.map((v,i)=>Math.round(v+(high[i]-v)*t));
+ return {radius:4+10*Math.sqrt(t),color:'#173951',fillColor:`rgb(${rgb.join(',')})`,weight:1.2};
+}
+function addLegendRow(value,label,empty=false){
+ const row=document.createElement('div');row.className='legend-row';
+ const circle=document.createElement('span');circle.className='legend-circle';
+ const spec=empty ? symbolSpec(null):symbolSpec(value);
+ circle.style.width=2*spec.radius+'px';circle.style.height=2*spec.radius+'px';
+ circle.style.background=spec.fillColor;
+ const txt=document.createElement('span');txt.textContent=label;
+ row.append(circle,txt);$('legendRows').append(row);
+}
+function renderLegend(){
+ $('legendRows').replaceChildren();
+ if(mapMaxDischarge>0){
+  for(const fraction of [0.01,0.1,0.35,1]){
+   const value=mapMaxDischarge*fraction;
+   addLegendRow(value,`${value<1?value.toFixed(2):value.toFixed(1)} Gt/yr`);
+  }
+ }else{
+  addLegendRow(0,'0 Gt/yr');
  }
-
+ addLegendRow(null,'No recent value',true);
+ $('legendDate').textContent=
+  `Scale uses latest available rate per gate (within 12 months of ${mapReferenceMonth.slice(0,7)}). Maximum: ${mapMaxDischarge.toFixed(1)} Gt/yr. Symbols are not ice velocity.`;
+}
+function renderGateMarkers(){
+ pointLayer.clearLayers();markers={};markerSpecs={};
+ const all=dataset.gates.filter(g=>
+  finite(g.lat)&&finite(g.lon)&&g.lat>=55&&g.lat<=85&&g.lon>=-75&&g.lon<=-10);
+ const reference=monthsFromSource(dataset.greenland).filter(p=>finite(p.d)).at(-1);
+ mapReferenceMonth=reference?reference.date:'';
+ const items=all.map(g=>({g,observation:recentGateRate(g.id)}));
+ mapMaxDischarge=Math.max(0,...items.map(item=>item.observation?.d||0));
+ // Larger circles first. Small circles are drawn last and thus stay visible.
+ items.sort((a,b)=>(b.observation?.d??-1)-(a.observation?.d??-1));
+ for(const {g,observation} of items){
+  const id=String(g.id),spec=symbolSpec(observation?.d??null);
+  const marker=L.circleMarker([g.lat,g.lon],{
+   ...spec,fillOpacity:.96
+  }).addTo(pointLayer);
+  marker.on('click',()=>choose(id));
+  const when=observation?.date.slice(0,7)||'No recent observation';
+  marker.bindTooltip(`${gateTitle(g)} | ${observation?observation.d.toFixed(2)+' Gt/yr':'No recent value'} | ${when}`,{direction:'top'});
+  markers[id]=marker;
+  markerSpecs[id]=spec;
+  const option=document.createElement('option');
+  option.value=gateTitle(g);
+  $('glaciers').append(option);
+ }
+ renderLegend();
+ $('mapstatus').textContent=`${items.length} gates; ${items.filter(i=>i.observation).length} with recent discharge`;
+}
+function gateName(g) {
+ if(!g)return '';
+ const name=String(g.name||'').trim()
+  .replace(/\s*\(Gate\s*#?\s*\d+\)\s*$/i,'');
+ if(!name || /^(none|nan|null|unknown|unnamed glacier)$/i.test(name) ||
+    /^gate\s*#?\s*\d+$/i.test(name))return '';
  return name;
 }
-
-function gateTitle(g) {
- return `${gateName(g)} (Gate ${g.id})`;
+function gateTitle(g){
+ if(!g)return 'Gate unknown';
+ const name=gateName(g);
+ return name ? `${name} (Gate ${g.id})` : `Gate ${g.id}`;
 }
-
 function selectedName() {
  const g=dataset?.gates?.find(g=>String(g.id)===selected);
- return selected===null
-  ? 'Greenland-wide discharge'
-  : gateTitle(g||{id:selected});
+ return selected === null ? 'Greenland-wide discharge' : gateTitle(g || {id:selected});
 }
-
-function sourceSeries() {
- return selected
-  ? dataset?.series?.[selected]||[]
-  : dataset?.greenland||[];
+function sourceSeries(){return selected?dataset?.series?.[selected]||[]:dataset?.greenland||[];}
+function displaySeries(){return monthsFromSource(sourceSeries());}
+function qualityReport(){
+ if(!dataset){$('qa').textContent='No data loaded';return;}
+ const gs=dataset.gates||[],records=dataset.greenland||[],m=monthsFromSource(records),valid=m.filter(p=>finite(p.d));
+ const ids=new Set(gs.map(g=>String(g.id)));const invalid=gs.filter(g=>!finite(g.lat)||!finite(g.lon)||g.lat<55||g.lat>85||g.lon< -75||g.lon> -10).length;
+ const duplicates=gs.length-ids.size;const allMonths=(m.at(-1)&&m[0])? (+(m.at(-1).date.slice(0,4))-(+m[0].date.slice(0,4)))*12+(+m.at(-1).date.slice(5,7))-(+m[0].date.slice(5,7))+1:0;
+ const gaps=Math.max(0,allMonths-m.length)+m.filter(p=>!finite(p.d)).length;
+ const rows=[['Discharge gates',gs.length.toLocaleString('en-GB')],['Glacier names available',gs.filter(g=>gateName(g)).length.toLocaleString('en-GB')],['Greenland observations',records.length.toLocaleString('en-GB')],['Available monthly bins',valid.length.toLocaleString('en-GB')],['Date span',m.length?m[0].date.slice(0,7)+' to '+m.at(-1).date.slice(0,7):'none'],['Missing months / empty bins',String(gaps)],['Invalid coordinates',String(invalid)],['Duplicate gate IDs',String(duplicates)]];
+ const container=$('qa');container.replaceChildren();for(const [label,value] of rows){const line=document.createElement('div');line.className='item';const left=document.createElement('span'),right=document.createElement('strong');left.textContent=label;right.textContent=value;line.append(left,right);}
+ const p=document.createElement('p');const warnings=[];if(invalid)warnings.push('Check gate coordinates');if(duplicates)warnings.push('Check gate IDs');if(gaps)warnings.push('Check the time-series gaps and coverage');if(!gs.some(g=>gateName(g)))warnings.push('No glacier names matched: check gate_meta.csv and updater log');if(m.length&&records.length>m.length)warnings.push('Higher-frequency samples are grouped to calendar months (simple average)');p.textContent=warnings.length?'Please review: '+warnings.join('; ')+'.':'Basic structural checks passed. This does not independently validate scientific measurements.';p.className=warnings.length?'qa-warn':'qa-ok';container.append(p);
 }
-
-function qualityReport() {
- if(!dataset){
-  $('qa').textContent='No data loaded';
-  return;
- }
-
- const gs=dataset.gates||[];
- const records=dataset.greenland||[];
- const m=monthsFromSource(records);
- const valid=m.filter(p=>finite(p.d));
-
- const ids=new Set(gs.map(g=>String(g.id)));
-
- const invalid=gs.filter(g=>
-  !finite(g.lat)||!finite(g.lon)||
-  g.lat<55||g.lat>85||g.lon< -75||g.lon> -10
- ).length;
-
- const duplicates=gs.length-ids.size;
-
- const allMonths=(m.at(-1)&&m[0])
-  ? (+(m.at(-1).date.slice(0,4))-(+m[0].date.slice(0,4)))*12
-    +(+m.at(-1).date.slice(5,7))
-    -(+m[0].date.slice(5,7))+1
-  : 0;
-
- const gaps=Math.max(0,allMonths-m.length)
-  +m.filter(p=>!finite(p.d)).length;
-
- const rows=[
-  ['Discharge gates',gs.length.toLocaleString('en-GB')],
-  ['Greenland observations',records.length.toLocaleString('en-GB')],
-  ['Available monthly bins',valid.length.toLocaleString('en-GB')],
-  ['Date span',m.length
-   ? m[0].date.slice(0,7)+' to '+m.at(-1).date.slice(0,7)
-   : 'none'],
-  ['Missing months / empty bins',String(gaps)],
-  ['Invalid coordinates',String(invalid)],
-  ['Duplicate gate IDs',String(duplicates)]
- ];
-
- const container=$('qa');
- container.replaceChildren();
-
- for(const [label,value] of rows) {
-  const line=document.createElement('div');
-  line.className='item';
-
-  const left=document.createElement('span');
-  const right=document.createElement('strong');
-
-  left.textContent=label;
-  right.textContent=value;
-
-  line.append(left,right);
-  container.append(line);
- }
-
- const p=document.createElement('p');
- const warnings=[];
-
- if(invalid)warnings.push('Check gate coordinates');
- if(duplicates)warnings.push('Check gate IDs');
- if(gaps)warnings.push('Check the time-series gaps and coverage');
-
- if(m.length&&records.length>m.length) {
-  warnings.push(
-   'Higher-frequency samples are grouped to calendar months (simple average)'
-  );
- }
-
- p.textContent=warnings.length
-  ? 'Please review: '+warnings.join('; ')+'.'
-  : 'Basic structural checks passed. This does not independently validate scientific measurements.';
-
- p.className=warnings.length?'qa-warn':'qa-ok';
- container.append(p);
-}
-
-function render() {
+function render(){
  const monthly=monthsFromSource(sourceSeries());
-
  $('selectiontitle').textContent=selectedName();
- $('selectionmeta').textContent=selected
-  ? 'Individual glacier discharge gate'
-  : 'All Greenland outlets';
-
- $('gateLabel').textContent=selected
-  ? 'Gate '+selected
-  : 'All Greenland';
-
+ $('selectionmeta').textContent=selected ? 'Individual glacier discharge gate' : 'All Greenland outlets';
+ $('gateLabel').textContent=selected ? 'Gate '+selected : 'All Greenland';
  $('gateMeta').textContent='Monthly rate · Gt/yr';
-
  const latest=monthly.filter(p=>finite(p.d)).at(-1);
-
- $('latest').textContent=latest
-  ? fmt(latest.d)+' Gt/yr'
-  : '—';
-
+ $('latest').textContent=latest ? fmt(latest.d)+' Gt/yr' : '—';
  $('latestdate').textContent=latest
-  ? latest.date.slice(0,7)
-   +(finite(latest.coverage)
-     ? ' · coverage '+Math.round(latest.coverage*100)+'%'
-     : '')
-  : 'No observations';
-
+   ? latest.date.slice(0,7)+(finite(latest.coverage)?' · coverage '+Math.round(latest.coverage*100)+'%':'')
+   : 'No observations';
  let vals=monthly;
-
- if($('period').value!=='all' && monthly.length) {
-  const n=Number($('period').value);
-  const last=monthly.at(-1).date.slice(0,7);
-  const [yr,mo]=last.split('-').map(Number);
-  const limit=new Date(Date.UTC(yr-n,mo-1,1));
-
-  vals=vals.filter(p=>parseDate(p.date)>=limit);
+ if ($('period').value !== 'all' && monthly.length) {
+   const n=Number($('period').value);
+   const last=monthly.at(-1).date.slice(0,7);
+   const [yr,mo]=last.split('-').map(Number);
+   const limit=new Date(Date.UTC(yr-n,mo-1,1));
+   vals=vals.filter(p=>parseDate(p.date)>=limit);
  }
-
- const x=vals.map(p=>p.date);
- const y=vals.map(p=>p.d);
- const traces=[];
-
- if($('uncertainty').checked && vals.some(p=>finite(p.err))) {
-  traces.push({
-   x,
-   y:vals.map(p=>finite(p.d)&&finite(p.err)?p.d+p.err:null),
-   line:{width:0},
-   hoverinfo:'skip',
-   showlegend:false
-  });
-
-  traces.push({
-   x,
-   y:vals.map(p=>finite(p.d)&&finite(p.err)?p.d-p.err:null),
-   fill:'tonexty',
-   fillcolor:'rgba(144,27,49,.11)',
-   line:{width:0},
-   showlegend:false,
-   hoverinfo:'skip'
-  });
+ const x=vals.map(p=>p.date), y=vals.map(p=>p.d), traces=[];
+ if ($('uncertainty').checked && vals.some(p=>finite(p.err))) {
+   traces.push({x,y:vals.map(p=>finite(p.d)&&finite(p.err)?p.d+p.err:null),line:{width:0},hoverinfo:'skip',showlegend:false});
+   traces.push({x,y:vals.map(p=>finite(p.d)&&finite(p.err)?p.d-p.err:null),fill:'tonexty',fillcolor:'rgba(144,27,49,.11)',line:{width:0},showlegend:false,hoverinfo:'skip'});
  }
-
- traces.push({
-  x,y,
-  type:'scatter',
-  mode:'lines',
-  connectgaps:false,
-  line:{color:'#901b31',width:2},
-  name:'Monthly discharge',
-  hovertemplate:'%{x|%b %Y}<br>%{y:.2f} Gt/yr<extra></extra>'
- });
-
+ traces.push({x,y,type:'scatter',mode:'lines',connectgaps:false,
+   line:{color:'#901b31',width:2},name:'Monthly discharge',
+   hovertemplate:'%{x|%b %Y}<br>%{y:.2f} Gt/yr<extra></extra>'});
  Plotly.react('chart',traces,{
-  margin:{l:57,r:15,t:18,b:40},
-  paper_bgcolor:'white',
-  plot_bgcolor:'white',
-  xaxis:{gridcolor:'#e9eef1'},
-  yaxis:{
-   title:'Discharge (Gt/yr)',
-   rangemode:'tozero',
-   gridcolor:'#e9eef1'
-  },
-  showlegend:false,
-  hovermode:'x unified'
+   margin:{l:57,r:15,t:18,b:40},paper_bgcolor:'white',plot_bgcolor:'white',
+   xaxis:{gridcolor:'#e9eef1'},
+   yaxis:{title:'Discharge (Gt/yr)',rangemode:'tozero',gridcolor:'#e9eef1'},
+   showlegend:false,hovermode:'x unified'
  },{responsive:true,displaylogo:false});
-
- const csv=[
-  'month,discharge_Gt_per_year,mean_reported_uncertainty_Gt_per_year,mean_source_coverage,samples',
-  ...vals.map(p=>[
-   p.date.slice(0,7),
-   p.d??'',
-   p.err??'',
-   p.coverage??'',
-   p.samples??''
-  ].join(','))
- ].join('\n');
-
- $('csvDownload').href=
-  'data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-
- $('csvDownload').download=
-  (selected?'gate_'+selected:'greenland')+'_monthly.csv';
+ const csv=['month,discharge_Gt_per_year,mean_reported_uncertainty_Gt_per_year,mean_source_coverage,samples',
+   ...vals.map(p=>[p.date.slice(0,7),p.d??'',p.err??'',p.coverage??'',p.samples??''].join(','))].join('\n');
+ $('csvDownload').href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+ $('csvDownload').download=(selected?'gate_'+selected:'greenland')+'_monthly.csv';
 }
-
-function choose(id) {
+function choose(id){
  selected=id===null?null:String(id);
-
- for(const [key,marker] of Object.entries(markers)) {
-  const picked=key===selected;
-
+ for(const [key,marker] of Object.entries(markers)){
+  const picked=key===selected,base=markerSpecs[key];
   marker.setStyle({
-   radius:picked?9:5.5,
-   fillColor:picked?'#ffd260':'#ffffff',
-   color:'#901b31',
-   weight:picked?3.5:1.8,
+   ...base,
+   radius:picked?base.radius+2.5:base.radius,
+   color:picked?'#e5a000':base.color,
+   weight:picked?3.5:base.weight,
    fillOpacity:1
   });
-
-  if(picked)marker.bringToFront();
+  // Keep the size-based ordering intact, even after selecting a point.
  }
-
  $('search').value=selected?selectedName():'';
  render();
 }
-
-$('reset').onclick=()=>{
- choose(null);
- resetMap();
-};
-
-$('period').onchange=render;
-$('uncertainty').onchange=render;
-
-$('search').onchange=()=>{
- const v=$('search').value.trim().toLowerCase();
-
- const g=dataset?.gates?.find(g=>
-  gateTitle(g).toLowerCase()===v||
-  gateName(g).toLowerCase()===v||
-  String(g.id).toLowerCase()===v||
-  ('gate '+g.id).toLowerCase()===v
- );
-
- if(g) {
-  choose(g.id);
-  map.setView([g.lat,g.lon],Math.min(map.getMaxZoom(),4));
- }
-};
-
-async function start() {
- try {
-  const r=await fetch('data/dashboard.json?ts='+Date.now());
-
-  if(!r.ok) {
-   throw Error(
-    'data/dashboard.json missing (HTTP '+r.status+')'
-   );
-  }
-
-  const d=await r.json();
-
-  if(!Array.isArray(d.greenland)||
-     !d.greenland.length||
-     !Array.isArray(d.gates)||
-     !d.gates.length) {
-   throw Error('Data missing Greenland time series or gates');
-  }
-
-  dataset=d;
-  $('message').classList.add('hidden');
-
-  $('version').textContent=d.version
-   ? 'GEUS dataset version: '+d.version
-   : '';
-
-  $('mapstatus').textContent=
-   d.gates.length+' gates in source data';
-
-  for(const g of d.gates) {
-   if(!finite(g.lat)||!finite(g.lon)||
-      g.lat<55||g.lat>85||
-      g.lon< -75||g.lon> -10)continue;
-
-   const marker=L.circleMarker([g.lat,g.lon],{
-    radius:5.5,
-    color:'#901b31',
-    weight:1.8,
-    fillColor:'#ffffff',
-    fillOpacity:1
-   }).addTo(pointLayer);
-
-   marker.on('click',()=>choose(g.id));
-   marker.bindTooltip(gateTitle(g),{direction:'top'});
-   markers[String(g.id)]=marker;
-
-   const option=document.createElement('option');
-   option.value=gateTitle(g);
-   option.label=gateTitle(g);
-   $('glaciers').append(option);
-  }
-
-  qualityReport();
-  render();
-
- }catch(err) {
-  $('message').textContent=
-   'The dashboard could not load verified discharge data: '+
-   err.message+
-   '. Check the latest Actions workflow and data/dashboard.json.';
-
-  $('mapstatus').textContent='No gate points loaded';
-  $('qa').textContent='Data QA could not be completed.';
-
-  Plotly.react('chart',[],{
-   annotations:[{
-    text:'Data not loaded',
-    showarrow:false
-   }],
-   xaxis:{visible:false},
-   yaxis:{visible:false}
-  },{responsive:true});
- }
+$('reset').onclick=()=>{choose(null);resetMap();};
+$('period').onchange=render;$('uncertainty').onchange=render;
+$('search').onchange=()=>{const v=$('search').value.trim().toLowerCase();if(!v)return;const g=dataset?.gates?.find(g=>gateTitle(g).toLowerCase()===v||gateName(g).toLowerCase()===v||String(g.id).toLowerCase()===v||('gate '+g.id).toLowerCase()===v);if(g){choose(g.id);map.setView([g.lat,g.lon],Math.min(map.getMaxZoom(),4));}};
+async function start(){
+ try{
+   const r=await fetch('data/dashboard.json?ts='+Date.now());if(!r.ok)throw Error('data/dashboard.json missing (HTTP '+r.status+')');
+   const d=await r.json();if(!Array.isArray(d.greenland)||!d.greenland.length||!Array.isArray(d.gates)||!d.gates.length)throw Error('Data missing Greenland time series or gates');
+   dataset=d;$('message').classList.add('hidden');$('version').textContent=d.version?'GEUS dataset version: '+d.version:'';
+   $('mapstatus').textContent=d.gates.length+' gates in source data';
+   renderGateMarkers();
+   qualityReport();render();
+ }catch(err){$('message').textContent='The dashboard could not load verified discharge data: '+err.message+'. Check the latest Actions workflow and data/dashboard.json.';$('mapstatus').textContent='No gate points loaded';$('qa').textContent='Data QA could not be completed.';Plotly.react('chart',[],{annotations:[{text:'Data not loaded',showarrow:false}],xaxis:{visible:false},yaxis:{visible:false}},{responsive:true});}
 }
-
 start();
 </script>
-</body>
-</html>
+</body></html>
